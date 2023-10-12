@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>250423361173-jdrg3gj7gpke84doj56pidn6ts4a5kl7.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCnmcA45Jc0m1nl6aw-tsgEtrTHPsnKhHk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>250423361173</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>alif.app.ios</string>
+	<key>PROJECT_ID</key>
+	<string>alif-learning-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>alif-learning-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:250423361173:ios:982aa8306e593978b0259c</string>
+</dict>
+</plist>
