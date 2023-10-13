@@ -28,4 +28,6 @@ class StorageService {
 
   Future setUid(String value) async => await _preferences.setString(uid, value);
   String? get userId => _preferences.getString(uid);
+
+  Future logout()=> _preferences.clear();
 }

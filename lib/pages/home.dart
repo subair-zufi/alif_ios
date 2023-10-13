@@ -20,6 +20,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Lessons"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                StorageService.instance.logout();
+                setState(() {});
+              },
+              icon: const Icon(Icons.logout))
+        ],
       ),
       body: StorageService.instance.isLoggedIn
           ? FutureBuilder<List<Enrolment>>(

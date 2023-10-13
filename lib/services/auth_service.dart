@@ -18,13 +18,11 @@ class AuthService {
     final uid = await _userExists(phone);
     if (uid != null) {
       String? otp = phone == '+919544251876' ? "000000" : await _sendOtp(phone);
-      if (otp != null) {
-        sentOtp = otp;
-        await StorageService.instance.setPhone(phone);
-        await StorageService.instance.setUid(uid);
-        return true;
-      }
-      throw "OTP could not sent";
+      sentOtp = otp;
+      debugPrint(sentOtp);
+      await StorageService.instance.setPhone(phone);
+      await StorageService.instance.setUid(uid);
+      return true;
     }
     throw "User does not exists";
   }
@@ -49,7 +47,7 @@ class AuthService {
     return null;
   }
 
-  Future<String?> _sendOtp(String phone) async {
+  Future<String> _sendOtp(String phone) async {
     final otp = await _randomOtp();
     debugPrint(otp);
     final url =
@@ -59,7 +57,7 @@ class AuthService {
     if (response.statusCode == 200) {
       return otp;
     }
-    return null;
+    throw "Could not send OTP";
   }
 
   Future<String> _randomOtp() async {

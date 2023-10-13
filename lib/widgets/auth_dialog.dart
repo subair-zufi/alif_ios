@@ -73,7 +73,7 @@ class _AuthDialogState extends State<AuthDialog> {
                             if (!showOtp) {
                               //verify
                               final sentOtp = await AuthService.instance
-                                  .sendOtp("+919544251876");
+                                  .sendOtp("+91${phoneController.text}");
                               if (sentOtp) {
                                 showOtp = true;
                               }
