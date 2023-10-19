@@ -47,11 +47,39 @@ class AuthService {
     return null;
   }
 
+  Future createUser(String phone) async {
+    if (phone.isNotEmpty && await _userExists(phone) == null) {
+      final newUserId = FirebaseFirestore.instance.collection('users').doc().id;
+      final user = {
+        "uid": newUserId,
+        "phone": "+91$phone",
+        "token": newUserId,
+        "name": "",
+        "email": "",
+        "imgUrl": "",
+        "enrolments": [],
+        "totalEarned": 0,
+        "registeredAt": DateTime.now().millisecondsSinceEpoch,
+        "address": "",
+        "bankDetails": "",
+        "oldUser": "",
+        "appAccess": false,
+        "kitRequested": "",
+        "platform": "ios",
+      };
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(newUserId)
+          .set(user);
+    }
+    return;
+  }
+
   Future<String> _sendOtp(String phone) async {
     final otp = await _randomOtp();
     debugPrint(otp);
     final url =
-        "https://www.fast2sms.com/dev/bulkV2?authorization=kJgMmhBuZvF4Y1bNOypDncraKPQSAo7qwU9IesjtxR0Xi8EzGfCPNdjbweGmxag4OrVcsyu8I23FUYHh&route=otp&variables_values=$otp&flash=0&numbers=$phone";
+        "https://www.fast2sms.com/dev/bulkV2?authorization=kJgMmhBuZvF4Y1bNOypDncraKPQSAo7qwU9IesjtxR0Xi8EzGfCPNdjbweGmxag4OrVcsyu8I23FUYHh&route=otp&variables_values=$otp&flash=0&numbers=${phone.replaceAll("+91", "")}";
     final response = await get(Uri.parse(url));
     debugPrint(response.body);
     if (response.statusCode == 200) {
@@ -62,7 +90,7 @@ class AuthService {
 
   Future<String> _randomOtp() async {
     final random = Random();
-    int randomNumber = random.nextInt(900) + 100;
+    int randomNumber = random.nextInt(9999) + 1000;
     return randomNumber.toString();
   }
 }

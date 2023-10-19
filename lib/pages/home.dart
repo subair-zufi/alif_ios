@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("Lessons"),
         actions: [
+          if(StorageService.instance.isLoggedIn)
           IconButton(
               onPressed: () {
                 StorageService.instance.logout();
@@ -48,13 +49,23 @@ class _HomePageState extends State<HomePage> {
                 );
               })
           : Center(
-              child: FloatingActionButton.extended(
-                  onPressed: () async {
-                    await showDialog(
-                        context: context, builder: (_) => const AuthDialog());
-                    setState(() {});
-                  },
-                  label: const Text("Login")),
+              child: SizedBox(
+                height: 50,
+                width: 140,
+                child: OutlinedButton(
+                    onPressed: () async {
+                      await showDialog(
+                          context: context, builder: (_) => const AuthDialog());
+                      setState(() {});
+                    },
+                    style: OutlinedButton.styleFrom(
+                        shape: const StadiumBorder(),
+                        side: const BorderSide(color: Colors.teal, width: 2)),
+                    child: const Text(
+                      "LOGIN",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+              ),
             ),
     );
   }

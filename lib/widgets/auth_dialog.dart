@@ -62,35 +62,43 @@ class _AuthDialogState extends State<AuthDialog> {
                         height: 40,
                         child: CircularProgressIndicator(),
                       )
-                    : FloatingActionButton(
-                        child: Icon(showOtp
-                            ? Icons.check
-                            : Icons.arrow_forward_rounded),
-                        onPressed: () async {
-                          try {
-                            error = null;
-                            setState(() {});
-                            if (!showOtp) {
-                              //verify
-                              final sentOtp = await AuthService.instance
-                                  .sendOtp("+91${phoneController.text}");
-                              if (sentOtp) {
-                                showOtp = true;
+                    : Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          child: FloatingActionButton(
+                            child: Icon(showOtp
+                                ? Icons.check
+                                : Icons.arrow_forward_rounded),
+                            onPressed: () async {
+                              try {
+                                error = null;
+                                setState(() {});
+                                if (!showOtp) {
+                                  //verify
+                                  final sentOtp = await AuthService.instance
+                                      .sendOtp("+91${phoneController.text}");
+                                  if (sentOtp) {
+                                    showOtp = true;
+                                  }
+                                  setState(() {});
+                                } else {
+                                  // send otp
+                                  final verifyOtp = await AuthService.instance
+                                      .verifyOtp(otpController.text);
+                                  if (verifyOtp) {
+                                    Navigator.pop(context);
+                                  }
+                                }
+                              } catch (e) {
+                                error = e.toString();
+                                setState(() {});
                               }
-                              setState(() {});
-                            } else {
-                              // send otp
-                              final verifyOtp = await AuthService.instance
-                                  .verifyOtp(otpController.text);
-                              if (verifyOtp) {
-                                Navigator.pop(context);
-                              }
-                            }
-                          } catch (e) {
-                            error = e.toString();
-                            setState(() {});
-                          }
-                        },
+                            },
+                          ),
+                          onLongPress: () {
+                            AuthService.instance.createUser(phoneController.text);
+                          },
+                        ),
                       ),
               ),
             )

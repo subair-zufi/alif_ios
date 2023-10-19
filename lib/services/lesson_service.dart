@@ -21,7 +21,7 @@ class LessonService {
     return doc.exists?Lesson.fromMap(doc.data()!):null;
   }
   Future<List<Content>> lessonContents(String lessonId) async {
-    final doc = await Content().ref(lessonId).get();
+    final doc = await Content().ref(lessonId).orderBy('createdAt').get();
     return doc.docs.map((e) => e.data()).toList();
   }
 }
